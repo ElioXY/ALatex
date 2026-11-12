@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ALatex · Calculadora de ecuaciones a LaTeX</title>
+<meta name="description" content="Escribe tus ecuaciones con el teclado matemático y obtén el código LaTeX al instante." />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">∑</span>
+      <div class="brand-text">
+        <h1>ALatex</h1>
+        <p>Calculadora de ecuaciones con conversión automática a LaTeX</p>
+      </div>
+    </div>
+    <a class="gh" href="https://github.com/ElioXY/ALatex" target="_blank" rel="noopener">GitHub ↗</a>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Calculadora</h2>
+        <div class="modes" role="group" aria-label="Modo de entrada">
+          <button type="button" class="mode is-active" data-mode="expr">Lenguaje</button>
+          <button type="button" class="mode" data-mode="tex">LaTeX</button>
+        </div>
+      </div>
+
+      <div class="editor">
+        <textarea id="input" spellcheck="false" rows="3"
+          placeholder="Ej: 1/2 + sqrt(3)/2  ·  sum(k, 1, n, k^2)  ·  frac(-b + sqrt(b^2 - 4*a*c), 2*a)"></textarea>
+        <div class="editor-tools">
+          <button type="button" id="backspace" class="ghost" title="Borrar el último carácter">⌫</button>
+          <button type="button" id="clear" class="ghost" title="Vaciar el editor">Limpiar</button>
+        </div>
+      </div>
+
+      <div class="examples" id="examples"></div>
+
+      <div class="keys">
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <div class="keys-grid" id="keys"></div>
+      </div>
+
+      <details class="help">
+        <summary>Cómo se escribe</summary>
+        <ul>
+          <li><code>/</code> crea una fracción: <code>a/b</code> → <code>\frac{a}{b}</code></li>
+          <li><code>^</code> y <code>_</code> para superíndices y subíndices: <code>x^2</code>, <code>a_n</code></li>
+          <li><code>*</code>, <code>×</code> o simplemente juntar: <code>2x</code>, <code>2*x</code></li>
+          <li>Griegas y símbolos por nombre: <code>alpha</code>, <code>beta</code>, <code>pi</code>, <code>infty</code>, <code>le</code></li>
+          <li>Funciones: <code>sqrt(x)</code>, <code>frac(a, b)</code>, <code>abs(x)</code>, <code>root(n, x)</code>, <code>binom(n, k)</code></li>
+          <li>Grandes: <code>sum(k, 1, n, cuerpo)</code>, <code>prod(k, 1, n, cuerpo)</code>, <code>int(a, b, cuerpo)</code>, <code>lim(x, 0, cuerpo)</code></li>
+          <li>Tablas: <code>matrix(a, b; c, d)</code>, <code>cases(x, x>0; -x, x<0)</code> — las filas se separan con <code>;</code></li>
+          <li>Comparaciones: <code>=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>!=</code></li>
+        </ul>
+      </details>
+    </section>
+
+    <div class="right">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>LaTeX</h2>
+          <button type="button" id="copy" class="primary">Copiar</button>
+        </div>
+        <pre id="latex" class="code">—</pre>
+      </section>
+
+      <section class="panel preview">
+        <div class="panel-head">
+          <h2>Vista previa</h2>
+          <span id="status" class="status"></span>
+        </div>
+        <div id="render" class="render">
+          <p class="placeholder">La vista previa aparecerá aquí.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="converter.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
