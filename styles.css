@@ -1,7 +1,7 @@
 /* ALatex — estilos */
 :root {
   --bg: #070b14;
-  --bg-soft: #0c1322;
+  --bg-soft: #0b1220;
   --panel: #101827;
   --panel-2: #162033;
   --border: #23304a;
@@ -10,7 +10,6 @@
   --muted: #8b9ab3;
   --accent: #7c8cff;
   --accent-2: #48e0c8;
-  --danger: #ff7b8a;
   --radius: 12px;
   --mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Consolas, monospace;
 }
@@ -88,12 +87,10 @@ body {
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
-
-.right { display: grid; gap: 18px; min-width: 0; }
 
 .panel {
   background: linear-gradient(180deg, rgba(22, 32, 51, .92), rgba(16, 24, 39, .96));
@@ -103,6 +100,8 @@ body {
   min-width: 0;
   box-shadow: 0 18px 40px rgba(3, 7, 16, .45);
 }
+
+.side { position: sticky; top: 18px; }
 
 .panel-head {
   display: flex;
@@ -121,90 +120,70 @@ body {
   color: var(--muted);
 }
 
-/* ---------- Modos ---------- */
-.modes {
-  display: inline-flex;
-  padding: 3px;
-  gap: 3px;
-  background: var(--bg-soft);
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-}
+.tools { display: flex; gap: 6px; }
 
-.mode {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 12px;
-  padding: 5px 13px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: .18s ease;
-}
+/* ---------- Editor visual ---------- */
+.mf-wrap { position: relative; }
 
-.mode:hover { color: var(--text); }
-
-.mode.is-active {
-  color: #060a12;
-  background: linear-gradient(135deg, var(--accent-2), var(--accent));
-  font-weight: 600;
-}
-
-/* ---------- Editor ---------- */
-.editor { position: relative; }
-
-#input {
+math-field.mf {
+  display: block;
   width: 100%;
-  resize: vertical;
-  min-height: 92px;
-  padding: 14px 14px 40px;
-  font-family: var(--mono);
-  font-size: 16px;
-  line-height: 1.55;
+  min-height: 150px;
+  padding: 18px 16px;
+  font-size: 2rem;
   color: var(--text);
   background: var(--bg-soft);
   border: 1px solid var(--border);
   border-radius: 10px;
-  outline: none;
+  --primary: var(--accent);
+  --caret-color: var(--accent-2);
+  --selection-color: #ffffff;
+  --selection-background-color: rgba(124, 140, 255, .38);
+  --contains-highlight-background-color: rgba(124, 140, 255, .10);
+  --placeholder-color: #5a6a86;
+  --text-font-family: "Inter", "Segoe UI", system-ui, sans-serif;
   transition: border-color .18s ease, box-shadow .18s ease;
 }
 
-#input::placeholder { color: #566480; }
-
-#input:focus {
+math-field.mf:focus,
+math-field.mf:focus-within {
+  outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(124, 140, 255, .16);
 }
 
-.editor-tools {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  display: flex;
-  gap: 6px;
+math-field.mf::part(menu-toggle),
+math-field.mf::part(virtual-keyboard-toggle) { display: none; }
+
+math-field.mf:not(:defined) { visibility: hidden; }
+
+/* ---------- Texto de ayuda ---------- */
+.hint {
+  margin: 10px 2px 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
-.ghost {
-  font: inherit;
-  font-size: 12px;
-  color: var(--muted);
+.hint kbd {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
   background: var(--panel-2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: .16s ease;
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 1px 5px;
 }
 
-.ghost:hover { color: var(--text); border-color: var(--accent); }
+.side-hint { margin-top: 12px; }
 
 /* ---------- Ejemplos ---------- */
 .examples {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin: 10px 0 14px;
+  margin: 12px 0 14px;
 }
 
 .chip {
@@ -286,6 +265,56 @@ body {
 
 .key:active { transform: translateY(1px) scale(.97); }
 
+/* ---------- Botones ---------- */
+.ghost {
+  font: inherit;
+  font-size: 12px;
+  color: var(--muted);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: .16s ease;
+}
+
+.ghost:hover { color: var(--text); border-color: var(--accent); }
+
+.primary {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #060a12;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: filter .16s ease, transform .1s ease;
+}
+
+.primary:hover { filter: brightness(1.08); }
+.primary:active { transform: translateY(1px); }
+
+/* ---------- Salida LaTeX ---------- */
+.code {
+  margin: 0;
+  padding: 14px;
+  min-height: 150px;
+  max-height: 60vh;
+  overflow: auto;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #cfe0ff;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: all;
+}
+
 /* ---------- Ayuda ---------- */
 .help {
   margin-top: 14px;
@@ -321,83 +350,16 @@ body {
   padding: 1px 5px;
 }
 
-/* ---------- Salida LaTeX ---------- */
-.primary {
-  font: inherit;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #060a12;
-  background: linear-gradient(135deg, var(--accent-2), var(--accent));
-  border: 0;
-  border-radius: 8px;
-  padding: 7px 14px;
-  cursor: pointer;
-  transition: filter .16s ease, transform .1s ease;
-}
-
-.primary:hover { filter: brightness(1.08); }
-.primary:active { transform: translateY(1px); }
-
-.code {
-  margin: 0;
-  padding: 14px;
-  min-height: 96px;
-  max-height: 260px;
-  overflow: auto;
-  font-family: var(--mono);
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #cfe0ff;
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-/* ---------- Vista previa ---------- */
-.status { font-size: 12px; color: var(--muted); }
-.status.err { color: var(--danger); }
-
-.render {
-  min-height: 118px;
-  display: grid;
-  place-items: center;
-  padding: 18px 12px;
-  overflow-x: auto;
-  color: var(--text);
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-}
-
-.render .katex { font-size: 1.35em; }
-
-.render .katex-display { margin: 0; }
-
-.placeholder {
-  margin: 0;
-  font-size: 13px;
-  color: #566480;
-}
-
-.render pre {
-  margin: 0;
-  font-family: var(--mono);
-  font-size: 13px;
-  color: var(--danger);
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
 /* ---------- Adaptable ---------- */
 @media (max-width: 980px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; }
+  math-field.mf { font-size: 1.7rem; min-height: 130px; }
 }
 
 @media (max-width: 560px) {
   body { padding: 0 12px 32px; }
   .keys-grid { grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); }
-  #input { font-size: 15px; }
-  .render .katex { font-size: 1.1em; }
+  math-field.mf { font-size: 1.5rem; min-height: 110px; }
+  .code { font-size: 12.5px; }
 }
