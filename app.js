@@ -9,12 +9,12 @@
   var PADS = [
     {
       name: 'Básico',
+      cols: 5,
       items: [
-        ['7', '7'], ['8', '8'], ['9', '9'], ['×', '\\times'], ['('],
-        ['4', '4'], ['5', '5'], ['6', '6'], ['÷', '\\frac{' + PH + '}{' + PH + '}'], [')'],
-        ['1', '1'], ['2', '2'], ['3', '3'], ['+', '+'], ['^'],
-        ['0', '0'], ['.', '.'], [',', ','], ['−', '-'], ['_'],
-        ['=', '='], ['<', '<'], ['>', '>'], ['≤', '\\le'], ['≥', '\\ge']
+        ['7', '7'], ['8', '8'], ['9', '9'], ['÷', '\\frac{' + PH + '}{' + PH + '}'], ['×', '\\times'],
+        ['4', '4'], ['5', '5'], ['6', '6'], ['−', '-'], ['+', '+'],
+        ['1', '1'], ['2', '2'], ['3', '3'], ['(', '('], [')', ')'],
+        ['0', '0'], ['.', '.'], [',', ','], ['=', '='], ['^', '^{' + PH + '}']
       ]
     },
     {
@@ -175,8 +175,11 @@
   }
 
   function buildKeys() {
+    var pad = PADS[state.pad];
     keysEl.innerHTML = '';
-    PADS[state.pad].items.forEach(function (item) {
+    keysEl.style.gridTemplateColumns = pad.cols ? 'repeat(' + pad.cols + ', minmax(0, 1fr))' : '';
+    keysEl.classList.toggle('fixed', !!pad.cols);
+    pad.items.forEach(function (item) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'key';

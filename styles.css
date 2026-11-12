@@ -239,6 +239,11 @@ math-field.mf:not(:defined) { visibility: hidden; }
   gap: 7px;
 }
 
+/* El teclado básico conserva la disposición de calculadora. */
+.keys-grid.fixed { max-width: 560px; }
+
+.keys-grid.fixed .key { font-size: 17px; min-height: 48px; }
+
 .key {
   font: inherit;
   font-size: 15px;
