@@ -5,6 +5,9 @@
   var $ = function (sel) { return document.querySelector(sel); };
   var PH = '\\placeholder{}';
 
+  /* Pestañas de más usada a menos usada; dentro de cada una, los botones
+     también van de lo más común a lo más específico. */
+
   /* Cada botón es [etiqueta, LaTeX que se inserta]. */
   var PADS = [
     {
@@ -18,77 +21,44 @@
       ]
     },
     {
-      name: 'Griegas',
+      name: 'Estructuras',
       items: [
-        ['α', '\\alpha'], ['β', '\\beta'], ['γ', '\\gamma'],
-        ['δ', '\\delta'], ['ε', '\\epsilon'], ['ζ', '\\zeta'],
-        ['η', '\\eta'], ['θ', '\\theta'], ['ι', '\\iota'],
-        ['κ', '\\kappa'], ['λ', '\\lambda'], ['μ', '\\mu'],
-        ['ν', '\\nu'], ['ξ', '\\xi'], ['π', '\\pi'],
-        ['ρ', '\\rho'], ['σ', '\\sigma'], ['τ', '\\tau'],
-        ['υ', '\\upsilon'], ['φ', '\\varphi'], ['χ', '\\chi'],
-        ['ψ', '\\psi'], ['ω', '\\omega'],
-        ['Γ', '\\Gamma'], ['Δ', '\\Delta'], ['Θ', '\\Theta'],
-        ['Λ', '\\Lambda'], ['Ξ', '\\Xi'], ['Π', '\\Pi'],
-        ['Σ', '\\Sigma'], ['Υ', '\\Upsilon'], ['Φ', '\\Phi'],
-        ['Ψ', '\\Psi'], ['Ω', '\\Omega']
+        ['a/b', '\\frac{' + PH + '}{' + PH + '}'],
+        ['xⁿ', '^{' + PH + '}'],
+        ['√x', '\\sqrt{' + PH + '}'],
+        ['xₙ', '_{' + PH + '}'],
+        ['|x|', '\\left|' + PH + '\\right|'],
+        ['ⁿ√x', '\\sqrt[' + PH + ']{' + PH + '}'],
+        ['∑', '\\sum_{' + PH + '}^{' + PH + '}' + PH],
+        ['∫', '\\int_{' + PH + '}^{' + PH + '}' + PH],
+        ['lim', '\\lim_{' + PH + '\\to ' + PH + '}' + PH],
+        ['∏', '\\prod_{' + PH + '}^{' + PH + '}' + PH],
+        ['n sobre k', '\\binom{' + PH + '}{' + PH + '}'],
+        ['d/dx', '\\frac{d}{dx}' + PH],
+        ['matriz', '\\begin{pmatrix}' + PH + ' & ' + PH + ' \\\\ ' + PH + ' & ' + PH + '\\end{pmatrix}'],
+        ['casos', '\\begin{cases}' + PH + ' & ' + PH + ' \\\\ ' + PH + ' & ' + PH + '\\end{cases}'],
+        ['vector', '\\vec{' + PH + '}'],
+        ['barra', '\\overline{' + PH + '}'],
+        ['hat', '\\hat{' + PH + '}'],
+        ['‖x‖', '\\left\\|' + PH + '\\right\\|'],
+        ['texto', '\\text{' + PH + '}']
       ]
     },
     {
       name: 'Operadores',
       items: [
-        ['±', '\\pm'], ['∓', '\\mp'], ['·', '\\cdot'],
-        ['∗', '\\ast'], ['∘', '\\circ'], ['⊕', '\\oplus'],
-        ['⊗', '\\otimes'], ['≤', '\\le'], ['≥', '\\ge'],
-        ['≠', '\\ne'], ['≈', '\\approx'], ['≡', '\\equiv'],
-        ['∼', '\\sim'], ['∝', '\\propto'], ['≪', '\\ll'],
-        ['≫', '\\gg'], ['∞', '\\infty'], ['∂', '\\partial'],
-        ['∇', '\\nabla'], ['∑', '\\sum'], ['∏', '\\prod'],
-        ['∫', '\\int'], ['∬', '\\iint'], ['∮', '\\oint'],
-        ['°', '^{\\circ}'], ['′', "'"], ['…', '\\dots'],
+        ['≤', '\\le'], ['≥', '\\ge'], ['≠', '\\ne'],
+        ['≈', '\\approx'], ['±', '\\pm'], ['∞', '\\infty'],
+        ['∂', '\\partial'], ['∑', '\\sum'], ['∫', '\\int'],
+        ['∏', '\\prod'], ['·', '\\cdot'], ['×', '\\times'],
+        ['≡', '\\equiv'], ['∼', '\\sim'], ['∝', '\\propto'],
+        ['∓', '\\mp'], ['∗', '\\ast'], ['∘', '\\circ'],
+        ['⊕', '\\oplus'], ['⊗', '\\otimes'], ['≪', '\\ll'],
+        ['≫', '\\gg'], ['∇', '\\nabla'], ['∬', '\\iint'],
+        ['∮', '\\oint'], ['°', '^{\\circ}'], ['′', "'"],
+        ['…', '\\dots'],
         ['⌊x⌋', '\\left\\lfloor ' + PH + '\\right\\rfloor'],
         ['⌈x⌉', '\\left\\lceil ' + PH + '\\right\\rceil']
-      ]
-    },
-    {
-      name: 'Relaciones',
-      items: [
-        ['→', '\\to'], ['←', '\\leftarrow'],
-        ['⇒', '\\Rightarrow'], ['⇐', '\\Leftarrow'],
-        ['⇔', '\\Leftrightarrow'], ['↔', '\\leftrightarrow'],
-        ['∈', '\\in'], ['∉', '\\notin'], ['⊂', '\\subset'],
-        ['⊃', '\\supset'], ['⊆', '\\subseteq'],
-        ['⊇', '\\supseteq'], ['∪', '\\cup'], ['∩', '\\cap'],
-        ['∅', '\\emptyset'], ['∀', '\\forall'],
-        ['∃', '\\exists'], ['¬', '\\neg'], ['∧', '\\land'],
-        ['∨', '\\lor'], ['∴', '\\therefore'],
-        ['∵', '\\because'], ['⊥', '\\perp'],
-        ['∥', '\\parallel'], ['∠', '\\angle']
-      ]
-    },
-    {
-      name: 'Estructuras',
-      items: [
-        ['a/b', '\\frac{' + PH + '}{' + PH + '}'],
-        ['√x', '\\sqrt{' + PH + '}'],
-        ['ⁿ√x', '\\sqrt[3]{' + PH + '}'],
-        ['xⁿ', '^{' + PH + '}'],
-        ['xₙ', '_{' + PH + '}'],
-        ['|x|', '\\left|' + PH + '\\right|'],
-        ['‖x‖', '\\left\\|' + PH + '\\right\\|'],
-        ['n sobre k', '\\binom{' + PH + '}{' + PH + '}'],
-        ['∑', '\\sum_{' + PH + '}^{' + PH + '}' + PH],
-        ['∏', '\\prod_{' + PH + '}^{' + PH + '}' + PH],
-        ['∫', '\\int_{' + PH + '}^{' + PH + '}' + PH],
-        ['lim', '\\lim_{' + PH + '\\to ' + PH + '}' + PH],
-        ['d/dx', '\\frac{d}{dx}' + PH],
-        ['matriz', '\\begin{pmatrix}' + PH + ' & ' + PH + ' \\\\ ' + PH + ' & ' + PH + '\\end{pmatrix}'],
-        ['casos', '\\begin{cases}' + PH + ' & ' + PH + ' \\\\ ' + PH + ' & ' + PH + '\\end{cases}'],
-        ['vector', '\\vec{' + PH + '}'],
-        ['hat', '\\hat{' + PH + '}'],
-        ['barra', '\\overline{' + PH + '}'],
-        ['texto', '\\text{' + PH + '}'],
-        ['raíz n', '\\sqrt[' + PH + ']{' + PH + '}']
       ]
     },
     {
@@ -97,22 +67,53 @@
         ['sin', '\\sin\\left(' + PH + '\\right)'],
         ['cos', '\\cos\\left(' + PH + '\\right)'],
         ['tan', '\\tan\\left(' + PH + '\\right)'],
-        ['cot', '\\cot\\left(' + PH + '\\right)'],
-        ['sec', '\\sec\\left(' + PH + '\\right)'],
-        ['csc', '\\csc\\left(' + PH + '\\right)'],
+        ['ln', '\\ln\\left(' + PH + '\\right)'],
+        ['log', '\\log\\left(' + PH + '\\right)'],
         ['arcsin', '\\arcsin\\left(' + PH + '\\right)'],
         ['arccos', '\\arccos\\left(' + PH + '\\right)'],
         ['arctan', '\\arctan\\left(' + PH + '\\right)'],
+        ['exp', '\\exp\\left(' + PH + '\\right)'],
         ['sinh', '\\sinh\\left(' + PH + '\\right)'],
         ['cosh', '\\cosh\\left(' + PH + '\\right)'],
         ['tanh', '\\tanh\\left(' + PH + '\\right)'],
-        ['ln', '\\ln\\left(' + PH + '\\right)'],
-        ['log', '\\log\\left(' + PH + '\\right)'],
-        ['exp', '\\exp\\left(' + PH + '\\right)'],
+        ['sec', '\\sec\\left(' + PH + '\\right)'],
+        ['csc', '\\csc\\left(' + PH + '\\right)'],
+        ['cot', '\\cot\\left(' + PH + '\\right)'],
         ['det', '\\det\\left(' + PH + '\\right)'],
         ['máx', '\\max\\left(' + PH + '\\right)'],
         ['mín', '\\min\\left(' + PH + '\\right)'],
         ['gcd', '\\gcd\\left(' + PH + '\\right)']
+      ]
+    },
+    {
+      name: 'Griegas',
+      items: [
+        ['π', '\\pi'], ['α', '\\alpha'], ['β', '\\beta'],
+        ['θ', '\\theta'], ['γ', '\\gamma'], ['δ', '\\delta'],
+        ['λ', '\\lambda'], ['μ', '\\mu'], ['σ', '\\sigma'],
+        ['φ', '\\varphi'], ['ω', '\\omega'], ['ε', '\\epsilon'],
+        ['ρ', '\\rho'], ['τ', '\\tau'], ['ν', '\\nu'],
+        ['κ', '\\kappa'], ['η', '\\eta'], ['ζ', '\\zeta'],
+        ['ι', '\\iota'], ['ξ', '\\xi'], ['χ', '\\chi'],
+        ['ψ', '\\psi'], ['υ', '\\upsilon'],
+        ['Γ', '\\Gamma'], ['Δ', '\\Delta'], ['Θ', '\\Theta'],
+        ['Λ', '\\Lambda'], ['Ξ', '\\Xi'], ['Π', '\\Pi'],
+        ['Σ', '\\Sigma'], ['Υ', '\\Upsilon'], ['Φ', '\\Phi'],
+        ['Ψ', '\\Psi'], ['Ω', '\\Omega']
+      ]
+    },
+    {
+      name: 'Relaciones',
+      items: [
+        ['→', '\\to'], ['⇒', '\\Rightarrow'], ['∈', '\\in'],
+        ['⊆', '\\subseteq'], ['∪', '\\cup'], ['∩', '\\cap'],
+        ['⊂', '\\subset'], ['⇔', '\\Leftrightarrow'], ['∅', '\\emptyset'],
+        ['∀', '\\forall'], ['∃', '\\exists'], ['↔', '\\leftrightarrow'],
+        ['∧', '\\land'], ['∨', '\\lor'], ['¬', '\\neg'],
+        ['⊇', '\\supseteq'], ['⊃', '\\supset'], ['∉', '\\notin'],
+        ['⊥', '\\perp'], ['∥', '\\parallel'], ['∠', '\\angle'],
+        ['∴', '\\therefore'], ['∵', '\\because'], ['←', '\\leftarrow'],
+        ['⇐', '\\Leftarrow']
       ]
     }
   ];
